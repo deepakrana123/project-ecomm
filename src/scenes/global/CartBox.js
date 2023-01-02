@@ -28,6 +28,15 @@ const CartBox = () => {
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.price;
   }, 0);
+
+  const checkOutHandler =async(req,res)=>{
+
+    const {amount} =await axios.post('http://localhost:1234/api/v1/checkout',{
+      totalPrice
+    })
+    dispatch(isCartsOpen({}));
+
+  }
   return (
     <Box
     display={isCartOpen ? "block" : "none"}
@@ -133,8 +142,7 @@ const CartBox = () => {
               m: "20px 0",
             }}
             onClick={() => {
-              navigate("/checkout");
-              dispatch(isCartsOpen({}));
+              checkOutHandler()
             }}
           >
             CHECKOUT
