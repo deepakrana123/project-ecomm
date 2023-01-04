@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch} from "react-redux";
+import { useDispatch,useSelector} from "react-redux";
 import { Badge, Box, IconButton } from "@mui/material";
 import {
   PersonOutline,
@@ -14,6 +14,7 @@ import {isCartsOpen} from "../../state/index"
 const Navbar = () => {
   const dispatch=useDispatch();
   const navigate = useNavigate();
+  const cart=useSelector((state)=>state.cart.cart)
  
   return (
     <Box
@@ -64,7 +65,8 @@ const Navbar = () => {
             <PersonOutline />
           </IconButton>
           <Badge
-          badgeContent="2"
+          badgeContent={cart.length}
+          invisible={cart.length===0}
           color="secondary"
           sx={{
             "& .MuiBadge-badge": {

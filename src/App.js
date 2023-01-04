@@ -6,6 +6,7 @@ import Navbar from './scenes/global/Navbar';
 import ItemDeatils from './scenes/home/ItemDeatils';
 import Footer from './scenes/global/Footer';
 import CartBox from './scenes/global/CartBox';
+import PaymentDone from './scenes/global/PaymentDone';
 
 const ScrollToUp=()=>{
   const {pathname}=useLocation();
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/item/:id" element={<ItemDeatils/>}/>
+        <Route path="/paymentsuccess" element={<PaymentDone/>}/>
       </Routes>
       <CartBox />
       <Footer/>

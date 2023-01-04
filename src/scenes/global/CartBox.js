@@ -12,8 +12,7 @@ import {
   removeToCart,
   isCartsOpen,
 } from "../../state/index";
-import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const FlexBox = styled(Box)`
   display: flex;
   justify-content: space-between;
@@ -21,7 +20,6 @@ const FlexBox = styled(Box)`
 `;
 
 const CartBox = () => {
-    const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector(( state ) => state.cart.cart);
   const isCartOpen = useSelector(( state ) => state.cart.isCartOpen);
@@ -30,10 +28,34 @@ const CartBox = () => {
   }, 0);
 
   const checkOutHandler =async(req,res)=>{
-
-    const {amount} =await axios.post('http://localhost:1234/api/v1/checkout',{
+     const YOUR_KEY_ID= await axios.get('https://ecommserver.onrender.com/get/apiKey');
+    const amount = await axios.post('https://ecommserver.onrender.com/api/v1/checkout',{
       totalPrice
-    })
+    });
+    console.log(amount ,"amount")
+    var options = {
+      "key": YOUR_KEY_ID.data.key, // Enter the Key ID generated from the Dashboard
+      "amount":amount.data.order.amount , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Devendra Rana",
+      "description": "Testing for razorpay",
+      "image": "https://example.com/your_logo",
+      "order_id": amount.data.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "callback_url": 'https://ecommserver.onrender.com/api/v1/paymentverfication',
+      "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9999999999"
+      },
+      notes: {
+          "address": "Your own address"
+      },
+      theme: {
+          "color": "#3309cc"
+      }
+  };
+  var rzp1 = new window.Razorpay(options);
+  rzp1.open();
     dispatch(isCartsOpen({}));
 
   }
