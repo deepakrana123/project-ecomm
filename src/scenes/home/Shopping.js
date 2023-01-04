@@ -5,15 +5,14 @@ import Box from "@mui/material/Box";
 import Item from "../../components/Item";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "../../state/index";
+// import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Shopping = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [product,setProduct]=useState([])
   const [value, setValue] = useState("all");
-  const items = useSelector((state) => state.cart.items);
+  // const items = useSelector((state) => state.cart.items);
   const breakPoint = useMediaQuery("(min-width:600px)");
 
   const handleChange = (event, newValue) => {

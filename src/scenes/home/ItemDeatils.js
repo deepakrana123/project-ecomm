@@ -9,18 +9,17 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../../theme";
-import { ProductionQuantityLimitsOutlined } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../state';
+// import { useDispatch } from 'react-redux';
+// import { addToCart } from '../../state';
 
 const ItemDeatils = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [product,setProduct] =useState();
     const {id} =useParams();
     const [count, setCount] = useState(1);
     const [value, setValue] = useState("description");
-    const [item, setItem] = useState(null);
-    const [products,setProducts]=useState();
+    // const [item, setItem] = useState(null);
+    const [products , setProducts]=useState();
     async function getItems(id) {
         const {data:{products}} = await axios.get("https://dummyjson.com/products");
         setProducts(products)
@@ -31,7 +30,7 @@ const ItemDeatils = () => {
     
     useEffect(() => {
         getItems(id);
-    }, []); 
+    }, [id]); 
     
     const handleChange = (event, newValue) => {
         setValue(newValue);

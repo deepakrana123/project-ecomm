@@ -12,6 +12,7 @@ import {
   removeToCart,
   isCartsOpen,
 } from "../../state/index";
+import pixel from "../../assets/pixel.jpg";
 import axios from "axios";
 const FlexBox = styled(Box)`
   display: flex;
@@ -23,11 +24,11 @@ const CartBox = () => {
   const dispatch = useDispatch();
   const cart = useSelector(( state ) => state.cart.cart);
   const isCartOpen = useSelector(( state ) => state.cart.isCartOpen);
-  const totalPrice = cart.reduce((total, item) => {
+  const totalPrice = cart.reduce((total, item ) => {
     return total + item.count * item.price;
   }, 0);
 
-  const checkOutHandler =async(req,res)=>{
+  const checkOutHandler = async(req,res)=>{
      const YOUR_KEY_ID= await axios.get('https://ecommserver.onrender.com/get/apiKey');
     const amount = await axios.post('https://ecommserver.onrender.com/api/v1/checkout',{
       totalPrice
@@ -39,7 +40,7 @@ const CartBox = () => {
       "currency": "INR",
       "name": "Devendra Rana",
       "description": "Testing for razorpay",
-      "image": "https://example.com/your_logo",
+      "image": pixel,
       "order_id": amount.data.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       "callback_url": 'https://ecommserver.onrender.com/api/v1/paymentverfication',
       "prefill": {
